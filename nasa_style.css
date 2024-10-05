@@ -8,7 +8,7 @@ body {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    color: aliceblue;
+    color: rgb(254, 254, 255);
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
 
