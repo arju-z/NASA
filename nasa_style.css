@@ -1,0 +1,78 @@
+/* Apply background color and center the content in the webpage */
+body {
+    background: url(sky1.jpeg);
+    background-repeat:no-repeat;
+    background-size: cover;
+    margin: 0;
+    height: 100vh; /* Full height to allow centering vertically */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: aliceblue;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+
+}
+
+p
+{
+    font-size: 60px;
+}
+.top {
+    
+    
+    display: flex;
+    justify-content: center; /* Center inner text horizontally */
+    align-items: center; /* Center inner text vertically */
+    text-align: center; /* Ensure text aligns in the middle of the container */
+}
+
+/* Glow effect on text */
+.glow {
+    color: #eb8b3c; /* Text color */
+    font-size: 78px; /* Size of the text */
+    font-family: 'Montserrat', sans-serif;
+    text-align: center; /* Center align the text */
+    font-weight: bold; /* Make the text bold */
+    text-shadow: 0 0 10px #fbbc3c, /* First layer of white glow */
+                 0 0 20px #f7ff5e, /* Second layer of purple glow */
+                 0 0 30px #e4ff18, /* More spread purple glow */
+                 0 0 0px #e8ff4f, /* Even more spread purple glow */
+                 0 0 0px #eaff72, 
+                 0 0 0px #f8ff96;
+   
+}
+
+.box
+{
+    padding-left: 140px;
+    align-items: center;
+}
+
+
+body {
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Full viewport height */
+    display: flex; /* Use flexbox for positioning */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Space between elements */
+}
+
+.get-started-button {
+    background-color: #3566fa; /* Green background */
+    border: none; /* No border */
+    color: rgb(249, 246, 246); /* White text */
+    padding: 15px 32px; /* Padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Aligns with other elements */
+    font-size: 16px; /* Font size */
+    margin: 20px auto; /* Center the button horizontally */
+    cursor: pointer; /* Cursor style */
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s; /* Transition effect */
+}
+
+.get-started-button:hover {
+    background-color: #140f29; /* Darker green on hover */
+}
