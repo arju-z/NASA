@@ -1,0 +1,42 @@
+/* Apply background color and center the content in the webpage */
+body {
+    background: url(SKY.jpeg);
+    margin: 0;
+    height: 100vh; /* Full height to allow centering vertically */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    color: aliceblue;
+}
+
+p
+{
+    font-size: 60px;
+}
+.top {
+    font-family: "Afacad Flux", sans-serif;
+    display: flex;
+    justify-content: center; /* Center inner text horizontally */
+    align-items: center; /* Center inner text vertically */
+    text-align: center; /* Ensure text aligns in the middle of the container */
+}
+
+/* Glow effect on text */
+.glow {
+    color: #ff7c12; /* Text color */
+    font-size: 78px; /* Size of the text */
+    text-align: center; /* Center align the text */
+    font-weight: bold; /* Make the text bold */
+    text-shadow: 0 0 10px #fbbc3c, /* First layer of white glow */
+                 0 0 20px #f7ff5e, /* Second layer of purple glow */
+                 0 0 30px #e4ff18, /* More spread purple glow */
+                 0 0 0px #e8ff4f, /* Even more spread purple glow */
+                 0 0 0px #eaff72, 
+                 0 0 0px #f8ff96;
+}
+
+.box
+{
+    padding-left: 140px;
+    align-items: center;
+}
