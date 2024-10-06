@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orrery Web App: Near-Earth Objects</title>
+
+    <!-- Link to Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="info_styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        
+            <h1>Orrery Web App: Near-Earth Objects (NEOs)</h1>
+        
+       
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+       <div id="data" >
+        <h3> Asteroids</h3>
+        
+        <p>Type: S-type asteroid<br>
+            Closest Approach to Earth: 22 million km<br>
+            Orbital Period: 643 days (~1.76 years)<br>
+            Description: One of the largest near-Earth asteroids, Eros was the first<br>
+            asteroid to be orbited and landed on by a spacecraft (NEAR Shoemaker in
+            2001).<br>
+            (101955) Bennu <br><br></p>
+
+        <p>Type: B-type asteroid<br>
+            Closest Approach to Earth: ~300,000 km (within lunar distance)<br>
+            Orbital Period: 436.6 days (~1.2 years)<br>
+            Description: Bennu is famous for being the target of NASA's OSIRIS-REx <br>
+            mission, which collected samples and returned them to Earth in 2023. Its <br>
+            close approaches make it a Potentially Hazardous Asteroid (PHA).<br>
+            (99942) Apophis<br><br>
+        </p>
+        <p>
+            Type: S-type asteroid<br>
+            Closest Approach to Earth: ~31,600 km (approaching Earth in 2029)<br>
+            Orbital Period: 323 days (~0.88 years)<br>
+            Description: Apophis is notable for its extremely close approach to Earth in <br>
+            2029, within the distance of geostationary satellites. It was once thought <br>
+            to pose a risk of collision with Earth.<br>
+            (3122) Florence<br><br>
+
+        </p>
+        <p>
+            Type: S-type asteroid<br>
+            Closest Approach to Earth: 7 million km<br>
+            Orbital Period: 859 days (~2.35 years)<br>
+            Description: Florence is one of the largest known PHAs and safely passed <br>
+            Earth in 2017. ItÕs notable for its size (~4.5 km in diameter) and close flyby.<br>
+            (29075) 1950 DA<br><br>
+            Type: C-type asteroid<br>
+            Closest Approach to Earth: ~8 million km<br>
+            Orbital Period: 2.11 years<br>
+            Description: 1950 DA is notable for its potential risk of collision in the <br>
+            distant future (2880). Its near-Earth orbit makes it a key subject of study <br>
+            for asteroid impact prediction.<br>
+            (99907) 1989 VB<br><br>
+            Type: Apollo group asteroid<br>
+            Closest Approach to Earth: ~1 million km<br>
+            Orbital Period: 1.78 years<br>
+            Description: This asteroid regularly passes near Earth, and its orbit <br>
+            classifies it as an Apollo asteroid, meaning its orbit crosses Earth's orbit.<br><br>
+            </p>
+           <h3>Comets (Near-Earth Comets - NECs)<br></h3> 
+           <p>
+            Comet 103P/Hartley (Hartley 2)<br>
+            Type: Jupiter-family comet<br>
+            Closest Approach to Earth: 18 million km<br>
+            Orbital Period: 6.47 years<br>
+            Description: Hartley 2 is a small comet that made a close approach to Earth <br>
+            in 2010. It was visited by NASA's EPOXI mission, revealing its <br>
+            peanut-shaped nucleus.<br><br>
+            Comet 1P/Halley (Halley's Comet)<br>
+            Type: Short-period comet<br>
+Closest Approach to Earth: 24 million km<br>
+Orbital Period: 75.3 years<br>
+Description: HalleyÕs Comet is one of the most famous comets, visible from <br>
+Earth roughly every 75 years. Its next perihelion (closest approach to the <br>
+Sun) will be in 2061. <br><br>
+Comet C/2020 F3 (NEOWISE)<br>
+Type: Short-period comet<br>
+Closest Approach to Earth: 24 million km<br>
+Orbital Period: 75.3 years<br>
+Description: HalleyÕs Comet is one of the most famous comets, visible from<br>
+Earth roughly every 75 years. Its next perihelion (closest approach to the<br>
+Sun) will be in 2061.<br><br>
+Comet C/2020 F3 (NEOWISE)<br>
+Type: Short-period comet<br>
+Closest Approach to Earth: 40 million km<br>
+Orbital Period: 3.3 years<br>
+Description: EnckeÕs Comet has the shortest orbital period of any known <br>
+comet and is a frequent visitor to the inner solar system.<br><br>
+Comet C/1995 O1 (Hale-Bopp)<br>
+Type: Long-period comet<br>
+Closest Approach to Earth: 194 million km<br>
+Orbital Period: ~2,533 years<br>
+Description: Hale-Bopp was one of the brightest comets of the 20th <br>
+century and was visible to the naked eye for over 18 months.<br><br>
+</p>
+<h3> Potentially Hazardous Asteroids (PHAs)<br></h3>
+<p>
+PHAs are asteroids with orbits that bring them very close to Earth,<br>
+typically within 7.5 million km, and have a size large enough (140 meters or 
+more)<br>
+ to cause significant damage in the event of an impact.<br><br>
+</p>
+<h4> Trojan asteroid<br></h4>
+ <p>
+Closest Approach to Earth: ~15 million km<br>
+Orbital Period: 1.01 years<br>
+Description: This asteroid is the first Earth Trojan, meaning it shares<br>
+EarthÕs orbit but doesnÕt pose a collision threat. It stays ahead of Earth in 
+its orbit.<br>
+Integrating These Bodies into Your Orrery Web App:<br>
+NASA NeoWs API: For real-time data on NEOs, use the NASA NeoWs API,<br>
+which provides current positions and orbital elements.<br>
+Orbital Paths: For each body, plot its orbital path using Keplerian elements <br>
+(semi-major axis, eccentricity, inclination, etc.) that you can obtain from <br>
+databases like JPL's Horizons system or the NeoWs API.<br>
+Dynamic Updates: Fetch NEO data dynamically to keep the app updated with<br>
+the latest near-Earth objects.<br>
+By incorporating these near-Earth asteroids and comets into your web app, <br>
+users will be able to explore the fascinating world of NEOs and their <br>
+interactions with Earth in real time. Let me know if you'd like help setting <br>
+up the backend API integration or visualization<br>
+
+
+
+        </p>
+            <h3></h3>
+           
+       </div>
+
+
+        
+
+        <!-- Data Panel for NEO Information -->
+        
+    </main>
+</body>
+</html>
+<!-- <div id="pic1">
+                <img src="nithu2.JPG" alt="1">
+            </div>-->

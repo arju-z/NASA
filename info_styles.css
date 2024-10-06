@@ -1,0 +1,98 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif; /* Apply Poppins as the font for the body */
+    background-color: #0d1b2a; /* Dark space-like background */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    font-family: 'Poppins', sans-serif; /* Use Poppins font for the header */
+    font-weight: 600; /* Choose a font weight (e.g., 600 for bold) */
+    text-align: center;
+    padding: 20px;
+    background-color: #162a44;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+h1 {
+    font-size: 2.5em;
+    color: #00d4ff;
+}
+h2 {
+    font-size: 2.5em;
+    color: #878889;
+}
+h3 {
+    font-size: 2em;
+    color: #e7e9ea;
+}
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+/* Orrery 3D Container */
+#orrery-container {
+    flex: 3;
+    position: relative;
+    background-color: #0d1b2a; /* Same as body background */
+    overflow: hidden;
+}
+#data
+{
+    flex: 3;
+    position: relative;
+    margin-left: 0%;
+    margin-right: 0%;
+    
+    background-color: #1b263b;
+    color: azure;
+    padding: 3vh;
+    text-align: left;
+    margin-top: 3px;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.1em;
+    font-family: 'Poppins',sans-serif;
+
+}
+#pic1{
+    display: flex;
+    position: absolute ;
+    padding-left: 0;
+    right: 0;
+    top: 0;
+    width: 50%;
+}
+
+canvas {
+    width: 500;
+    height: 100%;
+    display: block;
+}
+
+
+
+
+p {
+    font-family: 'Poppins', sans-serif; /* Use Poppins font for paragraphs */
+    font-weight: 250; /* Regular weight */
+}
+
+
+
+
+
+    
+

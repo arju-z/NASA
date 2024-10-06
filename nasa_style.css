@@ -37,6 +37,51 @@ p
 
 .box
 {
-    padding-left: 140px;
+    left: 50%;
     align-items: center;
 }
+.new-info {
+    background-color: #2118d4; /* Green background */
+    border: none; /* No border */
+    color: white; /* White text */
+    position: absolute;
+    bottom: 0; /* Align to the bottom */
+    left: 50%; /* Move to the center horizontally */
+    transform: translateX(-50%); /* Offset it back by 50% of its own width to truly center it */
+    padding: 15px 32px; /* Padding for internal spacing */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Aligns with other elements */
+    font-size: 16px; /* Font size */
+    margin: 20px auto; /* Center the button horizontally */
+    cursor: pointer; /* Cursor style */
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s; /* Transition effect */
+}
+.get-started-button {
+    background-color: #2118d4; /* Green background */
+    border: none; /* No border */
+    color: white; /* White text */
+    position: absolute;
+    bottom: 0; /* Align to the bottom */
+    right: 51%; /* Move to the center horizontally */
+    transform: translateX(-50%); /* Offset it back by 50% of its own width to truly center it */
+    padding: 15px 32px; /* Padding for internal spacing */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Aligns with other elements */
+    font-size: 16px; /* Font size */
+    margin: 20px auto; /* Center the button horizontally */
+    cursor: pointer; /* Cursor style */
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s; /* Transition effect */
+}
+
+.get-started-button:hover {
+    background-color: #000000; /* Darker green on hover */
+}
+.new-info:hover {
+    background-color: #000000; /* Darker green on hover */
+}
+
+
