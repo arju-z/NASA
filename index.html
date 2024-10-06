@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System with Saturn's Ring</title>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
+    <style>
+        canvas { width: 100%; height: 100%; display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('renderCanvas');
+        const engine = new BABYLON.Engine(canvas, true);
+
+        const createScene = () => {
+            const scene = new BABYLON.Scene(engine);
+            scene.clearColor = new BABYLON.Color3(0, 0, 0); // Set background to black
+
+            const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 4, Math.PI / 4, 70, BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+
+            const light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, -1, 0), scene);
+            light.position = new BABYLON.Vector3(0, 20, -20);
+
+            // Create the Sun
+            const sun = BABYLON.MeshBuilder.CreateSphere("sun", { diameter: 16 }, scene);
+            const sunMaterial = new BABYLON.StandardMaterial("sunMaterial", scene);
+            sunMaterial.emissiveColor = new BABYLON.Color3(1, 1, 0); // Yellow
+            sun.material = sunMaterial;
+
+            const glowLayer = new BABYLON.GlowLayer("glow", scene);
+            glowLayer.addIncludedOnlyMesh(sun);
+            glowLayer.intensity = 1.5;
+
+            const advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+            const createPlanet = (name, diameter, distance, tilt, rotationDirection, color, speedFactor) => {
+                const planet = BABYLON.MeshBuilder.CreateSphere(name, { diameter }, scene);
+                const planetMaterial = new BABYLON.StandardMaterial(name + "Material", scene);
+                planetMaterial.emissiveColor = new BABYLON.Color3(...color);
+                planet.material = planetMaterial;
+                planet.distance = distance;
+                planet.angle = Math.random() * Math.PI * 2;
+                planet.tilt = tilt;
+
+                const label = new BABYLON.GUI.TextBlock();
+                label.text = name.charAt(0).toUpperCase() + name.slice(1);
+                label.color = "white";
+                label.fontSize = 24;
+                label.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+                label.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+                label.linkWithMesh(planet);
+                label.top = "1.5em";
+                label.isVisible = false;  // Hide the label initially
+                advancedTexture.addControl(label);
+
+                planet.rotationDirection = rotationDirection;
+                planet.speedFactor = speedFactor; // Store the speed factor
+                planet.label = label; // Store label reference
+
+                // Click to show label, zoom-in and hide after 5 seconds
+                planet.actionManager = new BABYLON.ActionManager(scene);
+                planet.actionManager.registerAction(
+                    new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                        label.isVisible = true;  // Show label on click
+                        setTimeout(() => { label.isVisible = false; }, 5000); // Hide after 5 seconds
+
+                        // Zoom-in feature
+                        const originalRadius = camera.radius;
+                        camera.radius = planet.distance - 10; // Zoom in
+                        setTimeout(() => { camera.radius = originalRadius; }, 10000); // Zoom back out after 10 seconds
+                    })
+                );
+                return planet;
+            };
+
+            const planets = [];
+            planets.push(createPlanet("mercury", 0.675, 12, 7, -1, [0.5, 0.5, 0.5], 0.02)); // Speed factor
+            planets.push(createPlanet("venus", 1.8, 18, 3, -1, [1, 0.8, 0.2], 0.005)); 
+            const earth = createPlanet("earth", 1.575, 24, 0, 1, [0, 0.5, 1], 0.003);
+            planets.push(earth);
+            planets.push(createPlanet("mars", 1.125, 30, 25, 1, [1, 0.2, 0.2], 0.002));
+            planets.push(createPlanet("jupiter", 4.5, 40, 3, 1, [1, 0.6, 0.2], 0.001));
+            const saturn = createPlanet("saturn", 3.375, 55, 27, 1, [1, 0.8, 0.3], 0.0005);
+            planets.push(saturn);
+            planets.push(createPlanet("uranus", 2.7, 65, 6, -1, [0.2, 0.5, 1], 0.0003));
+            planets.push(createPlanet("neptune", 2.25, 75, 30, 1, [0.2, 0.2, 1], 0.0001));
+
+            const createMoon = (name, diameter, distance, parentPlanet) => {
+                const moon = BABYLON.MeshBuilder.CreateSphere(name, { diameter }, scene);
+                const moonMaterial = new BABYLON.StandardMaterial(name + "Material", scene);
+                moonMaterial.emissiveColor = new BABYLON.Color3(0.8, 0.8, 0.8);
+                moon.material = moonMaterial;
+                moon.parent = parentPlanet;
+                moon.angle = Math.random() * Math.PI * 2;
+                moon.distance = distance;
+
+                const moonLabel = new BABYLON.GUI.TextBlock();
+                moonLabel.text = name.charAt(0).toUpperCase() + name.slice(1);
+                moonLabel.color = "white";
+                moonLabel.fontSize = 16;
+                moonLabel.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+                moonLabel.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+                moonLabel.linkWithMesh(moon);
+                moonLabel.top = "1.5em";
+                moonLabel.isVisible = false;  // Initially hidden
+                advancedTexture.addControl(moonLabel);
+
+                moon.label = moonLabel; // Store label reference
+                
+                // Click to show label and zoom in
+                moon.actionManager = new BABYLON.ActionManager(scene);
+                moon.actionManager.registerAction(
+                    new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                        moonLabel.isVisible = true;  // Show label on click
+                        setTimeout(() => { moonLabel.isVisible = false; }, 5000); // Hide after 5 seconds
+
+                        // Zoom-in feature
+                        const originalRadius = camera.radius;
+                        camera.radius = moon.distance - 5; // Zoom in
+                        setTimeout(() => { camera.radius = originalRadius; }, 10000); // Zoom back out after 10 seconds
+                    })
+                );
+
+                return moon;
+            };
+
+            const moons = [];
+            moons.push(createMoon("phobos", 0.15, 0.8, planets[3])); // Mars
+            moons.push(createMoon("deimos", 0.15, 1.2, planets[3])); // Mars
+            moons.push(createMoon("io", 0.27, 1.1, planets[4])); // Jupiter
+            moons.push(createMoon("europa", 0.27, 1.1, planets[4])); // Jupiter
+            moons.push(createMoon("ganymede", 0.36, 1.5, planets[4])); // Jupiter
+            moons.push(createMoon("callisto", 0.38, 1.8, planets[4])); // Jupiter
+            moons.push(createMoon("titan", 0.38, 1.1, planets[5])); // Saturn
+            moons.push(createMoon("rhea", 0.23, 0.8, planets[5])); // Saturn
+            moons.push(createMoon("oberon", 0.23, 0.8, planets[6])); // Uranus
+            moons.push(createMoon("titania", 0.23, 0.9, planets[6])); // Uranus
+            moons.push(createMoon("triton", 0.23, 0.9, planets[7])); // Neptune
+
+            // Create Asteroid Belt (random rocks between Mars and Jupiter)
+            const createAsteroidBelt = (scene) => {
+                const asteroids = [];
+                for (let i = 0; i < 200; i++) {
+                    const asteroid = BABYLON.MeshBuilder.CreateSphere("asteroid", { diameter: 0.2 }, scene);
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 10 + 35; // Orbit between Mars and Jupiter
+                    asteroid.position.x = distance * Math.cos(angle);
+                    asteroid.position.z = distance * Math.sin(angle);
+                    asteroid.position.y = (Math.random() - 0.5) * 2; // Add slight vertical variation
+
+                    const asteroidMaterial = new BABYLON.StandardMaterial("asteroidMaterial", scene);
+                    asteroidMaterial.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5);
+                    asteroid.material = asteroidMaterial;
+
+                    asteroids.push(asteroid);
+                }
+            };
+            createAsteroidBelt(scene);
+
+            // Create Comet (comet orbit around the Sun)
+            const createComet = (name, diameter, distance, angleOffset) => {
+                const comet = BABYLON.MeshBuilder.CreateSphere(name, { diameter }, scene);
+                const cometMaterial = new BABYLON.StandardMaterial(name + "Material", scene);
+                cometMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1); // White
+                comet.material = cometMaterial;
+
+                comet.distance = distance;
+                comet.angle = angleOffset; // Starting angle
+                comet.speedFactor = Math.random() * 0.005 + 0.002; // Random speed
+
+                return comet;
+            };
+
+            const comets = [];
+            for (let i = 0; i < 5; i++) {
+                const angleOffset = Math.random() * Math.PI * 2;
+                comets.push(createComet("comet" + i, 0.5, Math.random() * 50 + 30, angleOffset));
+            }
+
+            // Add Starfield (White Dots)
+            const createStars = (scene, numStars) => {
+                for (let i = 0; i < numStars; i++) {
+                    const star = BABYLON.MeshBuilder.CreateSphere("star", { diameter: 0.1 }, scene);
+                    star.position = new BABYLON.Vector3(
+                        (Math.random() - 0.5) * 300,
+                        (Math.random() - 0.5) * 300,
+                        (Math.random() - 0.5) * 300
+                    );
+                    const starMaterial = new BABYLON.StandardMaterial("starMaterial", scene);
+                    starMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1); // White stars
+                    star.material = starMaterial;
+                }
+            };
+            createStars(scene, 200); // Create 200 stars
+
+            // Create Saturn's Ring
+            const createSaturnRing = (planet) => {
+                const ring = BABYLON.MeshBuilder.CreateTorus("ring", {
+                    diameter: 6.5,      // Outer diameter of the ring
+                    thickness: 0.05,    // Thickness of the ring
+                    tessellation: 80,   // Smoother circle
+                }, scene);
+                const ringMaterial = new BABYLON.StandardMaterial("ringMaterial", scene);
+                ringMaterial.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.8);
+                ring.material = ringMaterial;
+
+                ring.parent = planet;  // Attach the ring to Saturn
+                ring.rotation.x = Math.PI / 2;  // Align horizontally
+            };
+            createSaturnRing(saturn);  // Call this after Saturn is created
+
+            // Animations and Updates
+            scene.registerBeforeRender(() => {
+                planets.forEach(planet => {
+                    planet.position.x = planet.distance * Math.cos(planet.angle);
+                    planet.position.z = planet.distance * Math.sin(planet.angle);
+                    planet.position.y = planet.distance * Math.sin(planet.tilt * Math.PI / 180);
+
+                    planet.rotation.y += planet.rotationDirection * 0.01;
+                    planet.angle += planet.speedFactor; // Planet's orbit speed
+                });
+
+                moons.forEach(moon => {
+                    moon.position.x = moon.distance * Math.cos(moon.angle);
+                    moon.position.z = moon.distance * Math.sin(moon.angle);
+                    moon.angle += 0.01;
+                });
+
+                comets.forEach(comet => {
+                    comet.position.x = comet.distance * Math.cos(comet.angle);
+                    comet.position.z = comet.distance * Math.sin(comet.angle);
+                    comet.position.y = (Math.sin(comet.angle) * 10); // Comet's varying vertical position
+                    comet.angle += comet.speedFactor; // Comet's speed
+                });
+            });
+
+            return scene;
+        };
+
+        const scene = createScene();
+        engine.runRenderLoop(() => {
+            scene.render();
+        });
+
+        window.addEventListener('resize', () => {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>
